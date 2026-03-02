@@ -431,3 +431,8 @@ footer {
         font-size: 1.5rem;
     }
 }
+
+.page-header {
+    border-bottom: 3px solid var(--accent-blue);
+    background-image: linear-gradient(to right, #E1F5FE, #ffffff);
+}
