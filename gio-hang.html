@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ Hàng - Hải Sản Đại Dương</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <p>Hotline: 0123 456 789 | Giao hàng miễn phí toàn quốc cho đơn hàng trên 1 triệu!</p>
+        </div>
+    </div>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-fish fa-2x"></i> 
+                    <span>Hải Sản<br>Đại Dương</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="ca-tuoi.html">Cá Tươi</a></li>
+                    <li><a href="tom-cua.html">Tôm & Cua</a></li>
+                    <li><a href="muc-bach-tuoc.html">Mực & Bạch Tuộc</a></li>
+                    <li><a href="tin-tuc.html">Tin Tức</a></li>
+                    <li><a href="index.html#lien-he">Liên Hệ</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm hải sản..." class="search-input">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <a href="gio-hang.html" class="cart-icon icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Giỏ Hàng Của Bạn</h2>
+            <p>Kiểm tra kỹ danh sách trước khi tiến hành thanh toán.</p>
+        </div>
+    </section>
+
+    <main class="container" style="margin: 40px auto;">
+        <div class="cart-container" style="display: flex; gap: 30px; flex-wrap: wrap;">
+            <div class="cart-items" style="flex: 2; min-width: 300px;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--primary-blue);">
+                            <th style="padding: 10px;">Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 15px 0; display: flex; align-items: center; gap: 15px;">
+                                <img src="https://via.placeholder.com/60" alt="Tôm" style="border-radius: 5px;">
+                                <span>Tôm Hùm Bông</span>
+                            </td>
+                            <td>1.500.000đ</td>
+                            <td><input type="number" value="1" style="width: 40px; padding: 5px;"></td>
+                            <td>1.500.000đ</td>
+                            <td><button style="background: none; border: none; color: red; cursor: pointer;"><i class="fas fa-trash"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="index.html" style="display: inline-block; margin-top: 20px; color: var(--primary-blue); font-weight: bold;">
+                    <i class="fas fa-arrow-left"></i> Tiếp tục mua hàng
+                </a>
+            </div>
+
+            <div class="cart-summary" style="flex: 1; background: var(--gray); padding: 20px; border-radius: 10px; height: fit-content;">
+                
+                <div class="customer-info" style="margin-bottom: 30px;">
+                    <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: var(--primary-blue);">Thông tin nhận hàng</h3>
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Họ và tên:</label>
+                        <input type="text" placeholder="Nhập họ và tên người nhận" class="input-field">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Số điện thoại:</label>
+                        <input type="text" placeholder="Nhập số điện thoại liên lạc" class="input-field">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Địa chỉ:</label>
+                        <textarea placeholder="Số nhà, tên đường, phường/xã..." class="input-field" style="height: 80px; resize: none;"></textarea>
+                    </div>
+                </div>
+
+                <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; color: var(--primary-blue);">Tóm tắt đơn hàng</h3>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>Tạm tính:</span>
+                    <span>1.500.000đ</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>Phí vận chuyển:</span>
+                    <span style="color: #28a745; font-weight: bold;">Miễn phí</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px; font-weight: bold; font-size: 1.2rem; color: var(--primary-blue);">
+                    <span>Tổng cộng:</span>
+                    <span>1.500.000đ</span>
+                </div>
+                
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.1rem;">
+                    TIẾN HÀNH THANH TOÁN
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="script.js"></script>
+</html>
