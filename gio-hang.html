@@ -37,7 +37,7 @@
                 </div>
                 <a href="gio-hang.html" class="cart-icon icon">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">3</span>
+                    <span class="cart-count" id="cart-count">0</span>
                 </a>
             </div>
         </div>
@@ -105,17 +105,16 @@
                 <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; color: var(--primary-blue);">Tóm tắt đơn hàng</h3>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                     <span>Tạm tính:</span>
-                    <span>1.500.000đ</span>
+                    <span id="temp-price">0đ</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                     <span>Phí vận chuyển:</span>
                     <span style="color: #28a745; font-weight: bold;">Miễn phí</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-top: 20px; font-weight: bold; font-size: 1.2rem; color: var(--primary-blue);">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; color: var(--primary-blue);">
                     <span>Tổng cộng:</span>
-                    <span>1.500.000đ</span>
+                    <span id="total-price">0đ</span>
                 </div>
-                
                 <button class="btn btn-secondary" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.1rem;">
                     TIẾN HÀNH THANH TOÁN
                 </button>
@@ -123,5 +122,64 @@
         </div>
     </main>
 </body>
-<script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Hàm cập nhật con số đỏ trên Header (giống các trang khác)
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('seafoodCart')) || [];
+        const badge = document.getElementById('cart-count');
+        if (badge) {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.innerText = totalItems;
+            badge.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+    }
+
+    // 2. Vẽ bảng danh sách sản phẩm
+    const cart = JSON.parse(localStorage.getItem('seafoodCart')) || [];
+    const cartTableBody = document.querySelector('.cart-items tbody');
+    const totalPriceElement = document.getElementById('total-price');
+    const tempPriceElement = document.getElementById('temp-price');
+
+    updateCartBadge(); // Cập nhật số trên icon ngay lập tức
+
+    if (cart.length === 0) {
+        cartTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">Giỏ hàng của bạn đang trống!</td></tr>';
+        if(totalPriceElement) totalPriceElement.innerText = "0đ";
+        return;
+    }
+
+    let totalMoney = 0;
+    cartTableBody.innerHTML = ''; 
+
+    cart.forEach((item, index) => {
+        const subTotal = item.price * item.quantity;
+        totalMoney += subTotal;
+
+        cartTableBody.innerHTML += `
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 15px 0; display: flex; align-items: center; gap: 15px;">
+                    <img src="${item.img}" alt="${item.name}" style="width: 60px; border-radius: 5px;">
+                    <span>${item.name}</span>
+                </td>
+                <td>${Number(item.price).toLocaleString()}đ</td>
+                <td>${item.quantity}</td>
+                <td>${subTotal.toLocaleString()}đ</td>
+                <td><button onclick="removeItem(${index})" style="color:red; border:none; background:none; cursor:pointer;"><i class="fas fa-trash"></i></button></td>
+            </tr>
+        `;
+    });
+
+    if(totalPriceElement) totalPriceElement.innerText = totalMoney.toLocaleString() + "đ";
+    if(tempPriceElement) tempPriceElement.innerText = totalMoney.toLocaleString() + "đ";
+});
+
+// Hàm xóa sản phẩm (đã thêm hàm updateBadge vào để xóa xong số cũng nhảy theo)
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('seafoodCart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('seafoodCart', JSON.stringify(cart));
+    location.reload(); 
+}
+</script>
 </html>
