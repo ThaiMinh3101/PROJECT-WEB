@@ -143,25 +143,24 @@ document.addEventListener('DOMContentLoaded', () => {
     cartTableBody.innerHTML = ''; 
 
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        grandTotal += itemTotal;
+    grandTotal += item.total;
 
-        cartTableBody.innerHTML += `
-            <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 15px 0; display: flex; align-items: center; gap: 15px;">
-                    <img src="${item.img}" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px; background: #eee;">
-                    <span style="font-weight: 500;">${item.name}</span>
-                </td>
-                <td>${Number(item.price).toLocaleString('vi-VN')}đ</td>
-                <td>${item.quantity}</td>
-                <td style="font-weight:bold; color:var(--primary-blue);">${itemTotal.toLocaleString('vi-VN')}đ</td>
-                <td>
-                    <button onclick="removeItem(${index})" style="color:red; border:none; background:none; cursor:pointer;">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        `;
+    cartTableBody.innerHTML += `
+        <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 15px 0; display: flex; align-items: center; gap: 15px;">
+                <img src="${item.img}" style="width: 50px; border-radius: 5px; background: #eee;">
+                <span style="font-weight: 500;">${item.name}</span>
+            </td>
+            <td>${item.pricePerUnit.toLocaleString()}đ / ${item.unit}</td>
+            <td>${item.quantity} ${item.unit}</td>
+            <td style="font-weight:bold; color:var(--primary-blue);">${item.total.toLocaleString()}đ</td>
+            <td>
+                <button onclick="removeItem(${index})" style="color:red; border:none; background:none; cursor:pointer;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `;
     });
 
     // Cập nhật bảng tính tiền thực tế bên phải

@@ -20,43 +20,40 @@ function addToCart(event) {
     const button = event.target;
     const productCard = button.closest('.product-card'); 
     
-    // 1. Lấy phần tử chứa giá
-    const priceElement = productCard.querySelector('.price');
-    let priceText = priceElement.innerText;
+    const quantity = parseFloat(productCard.querySelector('.buy-quantity').value);
+    const unit = productCard.querySelector('.buy-unit').value;
 
-    // 2. NẾU CÓ GIÁ CŨ: Loại bỏ giá cũ ra khỏi chuỗi để không bị dính số
-    const oldPriceSpan = priceElement.querySelector('.old-price');
-    if (oldPriceSpan) {
-        priceText = priceText.replace(oldPriceSpan.innerText, '');
-    }
+    // Lấy giá thực tế (đã xử lý lỗi giá giảm dính số)
+    let priceElement = productCard.querySelector('.price').cloneNode(true);
+    if (priceElement.querySelector('.old-price')) priceElement.querySelector('.old-price').remove();
+    const pricePerKg = parseInt(priceElement.innerText.replace(/[^0-9]/g, ''));
 
-    // 3. Chỉ lấy con số cuối cùng (giá đang bán)
-    const priceValue = parseInt(priceText.replace(/[^0-9]/g, ''));
+    // TÍNH TOÁN THEO LẠNG: 1 lạng = 1/10 kg
+    const unitPrice = (unit === 'lang') ? (pricePerKg / 10) : pricePerKg;
+    const totalItemPrice = unitPrice * quantity;
 
     const product = {
         name: productCard.querySelector('h4').innerText,
-        price: priceValue,
         img: productCard.querySelector('img').src,
-        quantity: 1
+        unit: (unit === 'lang') ? 'lạng' : 'kg',
+        quantity: quantity,
+        pricePerUnit: unitPrice,
+        total: totalItemPrice
     };
 
     let cart = JSON.parse(localStorage.getItem('seafoodCart')) || [];
-    const existingItem = cart.find(item => item.name === product.name);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
+    
+    // Kiểm tra trùng sản phẩm và đơn vị để cộng dồn
+    const existing = cart.find(item => item.name === product.name && item.unit === product.unit);
+    if (existing) {
+        existing.quantity += product.quantity;
+        existing.total += product.total;
     } else {
         cart.push(product);
     }
 
     localStorage.setItem('seafoodCart', JSON.stringify(cart));
-    updateCartBadge();
-
-    // HIỆU ỨNG RUNG (BUMP) - KHÔNG HIỆN ALERT
-    const cartIconContainer = document.querySelector('.cart-icon');
-    cartIconContainer.classList.remove('bump');
-    void cartIconContainer.offsetWidth; 
-    cartIconContainer.classList.add('bump');
+    updateCartBadge(); // Hiệu ứng nảy giỏ hàng
 }
 
 // Khởi tạo
