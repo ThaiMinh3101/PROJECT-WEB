@@ -124,11 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hàm cập nhật số lượng đỏ trên Header
     function updateCartBadge() {
-        const badge = document.getElementById('cart-count');
-        if (badge) {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            badge.innerText = totalItems;
-            badge.style.display = totalItems > 0 ? 'flex' : 'none';
+    const cart = JSON.parse(localStorage.getItem('seafoodCart')) || [];
+    const badge = document.getElementById('cart-count');
+    if (badge) {
+        // ĐÃ SỬA: Đếm số loại mặt hàng thay vì cộng dồn số lượng
+        const totalOrders = cart.length; 
+        badge.innerText = totalOrders;
+        badge.style.display = totalOrders > 0 ? 'flex' : 'none';
         }
     }
 

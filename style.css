@@ -565,11 +565,11 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(17, 122, 139, 0.3);
 }
-/* Hiệu ứng rung nảy (Bump) */
+/* Hiệu ứng rung nảy mạnh mẽ hơn */
 @keyframes bump {
     0% { transform: scale(1); }
-    30% { transform: scale(1.4); } /* Nảy to lên */
-    50% { transform: scale(0.9); } /* Hơi lún xuống chút */
+    30% { transform: scale(1.5); }
+    50% { transform: scale(0.8); }
     100% { transform: scale(1); }
 }
 
@@ -577,7 +577,6 @@ footer {
     animation: bump 0.4s ease-out;
 }
 
-/* Đảm bảo icon giỏ hàng có thuộc tính này để hiệu ứng mượt */
 .cart-icon {
     display: inline-block;
     transition: transform 0.2s ease;
